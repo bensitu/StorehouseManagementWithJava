@@ -17,7 +17,7 @@ public interface IOService extends IService<IO> {
 
     IPage<IO> getPageWithStockIdByParam(int currentPage, int pageSize, IO iO);
 
-    IPage<IO> getAllIOBySearch(String stock_id, int currentPage, int pageSize, IO iO);
+    IPage<IO> getAllIOBySearch(String stock_id, Integer currentPage, Integer pageSize, String[] date, Integer ioType);
 
     IPage<IO> getIOInfoWithUpdateUser(String stock_id, int currentPage, int pageSize, IO iO);
 

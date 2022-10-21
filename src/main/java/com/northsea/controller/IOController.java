@@ -11,6 +11,7 @@ import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Array;
 import java.util.List;
 
 /**
@@ -59,11 +60,21 @@ public class IOController {
     }
 
     // 搜索，获取以货物id（stock_id）为url参数的所有出入库记录，并分页
-    @GetMapping("/{stock_id}/search/{currentPage}/{pageSize}")
+    @GetMapping("/{stock_id}/search/{currentPage}/{pageSize}/test/")
     public ResultBean<IPage<IO>> getAllBySearch(@PathVariable String stock_id, @PathVariable int currentPage, @PathVariable int pageSize, @RequestParam IO io) {
-        IPage<IO> page = ioService.getAllIOBySearch(stock_id, currentPage, pageSize, io);
+//        IPage<IO> page = ioService.getAllIOBySearch(stock_id, currentPage, pageSize, io);
+//        if (currentPage > page.getPages()) {
+//            page = ioService.getAllIOBySearch(stock_id, (int) page.getPages(), pageSize, io);
+//        }
+        return new ResultBean<IPage<IO>>();
+    }
+
+    // 搜索，获取以货物id（stock_id）为url参数的所有出入库记录，并分页
+    @GetMapping("/{stock_id}/search/{currentPage}/{pageSize}")
+    public ResultBean<IPage<IO>> getAllBySearchDate(@PathVariable String stock_id, @PathVariable Integer currentPage, @PathVariable Integer pageSize, @RequestParam(required = false) String[] date, @RequestParam(required = false) Integer type) {
+        IPage<IO> page = ioService.getAllIOBySearch(stock_id, currentPage, pageSize, date, type);
         if (currentPage > page.getPages()) {
-            page = ioService.getAllIOBySearch(stock_id, (int) page.getPages(), pageSize, io);
+            page = ioService.getAllIOBySearch(stock_id, (int) page.getPages(), pageSize, date, type);
         }
         return new ResultBean<IPage<IO>>(page);
     }

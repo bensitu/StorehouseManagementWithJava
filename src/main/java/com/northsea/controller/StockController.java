@@ -2,7 +2,6 @@ package com.northsea.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.northsea.entity.Stock;
-import com.northsea.entity.User;
 import com.northsea.result.ResultBean;
 import com.northsea.service.StockService;
 import lombok.extern.slf4j.Slf4j;
@@ -34,6 +33,15 @@ public class StockController {
         IPage<Stock> page = stockService.getPage(currentPage, pageSize);
         if (currentPage > page.getPages()){
             page = stockService.getPage((int) page.getPages(), pageSize);
+        }
+        return new ResultBean<IPage<Stock>>(page);
+    }
+
+    @GetMapping("/search/{currentPage}/{pageSize}")
+    public ResultBean<IPage<Stock>> getAllBySearchDate(@PathVariable Integer currentPage, @PathVariable Integer pageSize, @RequestParam(required = false) String name, @RequestParam(required = false) String[] date, @RequestParam(required = false) Integer type) {
+        IPage<Stock> page = stockService.getAllIOBySearchDate(currentPage, pageSize, name, date, type);
+        if (currentPage > page.getPages()) {
+            page = stockService.getAllIOBySearchDate((int) page.getPages(), pageSize, name, date, type);
         }
         return new ResultBean<IPage<Stock>>(page);
     }

@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.lang.reflect.Array;
+
 /**
  * @Author BenSitu
  * @CreateDate 2022/10/17
@@ -53,11 +55,16 @@ public class IOServiceImpl extends ServiceImpl<IODao, IO> implements IOService {
 
     @Transactional
     @Override
-    public IPage<IO> getAllIOBySearch(String stock_id, int currentPage, int pageSize, IO iO) {
+    public IPage<IO> getAllIOBySearch(String stock_id, Integer currentPage, Integer pageSize, String[] date, Integer ioType) {
         LambdaQueryWrapper<IO> lambdaQueryWrapper = new LambdaQueryWrapper<IO>();
+
         lambdaQueryWrapper.eq(Strings.isNotEmpty(stock_id), IO::getId, stock_id);
-        lambdaQueryWrapper.eq(Strings.isNotEmpty((CharSequence) iO.getCreateDate()),IO::getCreateDate, iO.getCreateDate());
-        lambdaQueryWrapper.eq(Strings.isNotEmpty(Integer.toString(iO.getIoType())),IO::getIoType, iO.getIoType());
+        if (date != null) {
+            lambdaQueryWrapper.between(IO::getUpdateDate, date[0], date[1]);
+        }
+        if (ioType != null){
+            lambdaQueryWrapper.eq(IO::getIoType, ioType);
+        }
         Page<IO> page = new Page<>(currentPage, pageSize);
         return ioDao.selectPage(page, lambdaQueryWrapper);
     }
