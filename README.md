@@ -4,7 +4,7 @@
 2. Vue起動：npm run serve
 
 ```shell
-cd vue
+cd vuejs
 npm i
 npm run serve
 ```

@@ -32,3 +32,4 @@ build/
 ### VS Code ###
 .vscode/
 /vuejs/node_modules/
+/vuejs/package-lock.json
