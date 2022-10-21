@@ -24,4 +24,6 @@ public interface IOService extends IService<IO> {
     Boolean saveIOInfo(IO iO);
 
     IO getIOItemByInOutNo(String stock_id, Integer in_out_no);
+
+    IO getLatestIOItemByStockId(String stock_id);
 }

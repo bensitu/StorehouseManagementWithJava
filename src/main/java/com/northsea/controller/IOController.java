@@ -26,11 +26,11 @@ public class IOController {
     @Autowired
     private IOService ioService;
 
-    //获取以货物id（stock_id）为参数的所有出入库记录
-//    @GetMapping("/{stock_id}")
-//    public ResultBean<List<IO>> getAllIOItemByStockId(@PathVariable String stock_id) {
-//        return new ResultBean<List<IO>>(ioService.listByIds(stock_id));
-//    }
+    //获取以货物id（stock_id）为参数的最新的出入库记录
+    @GetMapping("/{stock_id}")
+    public ResultBean<IO> getAllIOItemByStockId(@PathVariable String stock_id) {
+        return new ResultBean<IO>(ioService.getLatestIOItemByStockId(stock_id));
+    }
 
     //获取该货物的指定以 in_out_no 为参数的一条记录
     @GetMapping("/{stock_id}/iono/{in_out_no}")

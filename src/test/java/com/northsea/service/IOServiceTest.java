@@ -32,4 +32,10 @@ public class IOServiceTest {
         lambdaQueryWrapper.eq(IO::getId, id);
         ioService.list(lambdaQueryWrapper);
     }
+
+    @Test
+    public void getIOItemByInOutNoTest() {
+        String id = "0001";
+        ioService.getLatestIOItemByStockId(id);
+    }
 }

@@ -80,10 +80,15 @@ public class IOServiceImpl extends ServiceImpl<IODao, IO> implements IOService {
 
     @Override
     public IO getIOItemByInOutNo(String stock_id, Integer in_out_no) {
-        LambdaQueryWrapper<IO> lambdaQueryWrapper = new LambdaQueryWrapper<IO>();
-        lambdaQueryWrapper.eq(Strings.isNotEmpty(stock_id), IO::getId, stock_id);
-        lambdaQueryWrapper.eq(Strings.isNotEmpty(Integer.toString(in_out_no)), IO::getInOutNo, in_out_no);
-        return ioDao.selectOne(lambdaQueryWrapper);
+//        LambdaQueryWrapper<IO> lambdaQueryWrapper = new LambdaQueryWrapper<IO>();
+//        lambdaQueryWrapper.eq(Strings.isNotEmpty(stock_id), IO::getId, stock_id);
+//        lambdaQueryWrapper.eq(Strings.isNotEmpty(Integer.toString(in_out_no)), IO::getInOutNo, in_out_no);
+        return ioDao.getLastIOInfoRecordByIOID(stock_id);
+    }
+
+    @Override
+    public IO getLatestIOItemByStockId(String stock_id) {
+        return ioDao.getLastIOInfoRecordByIOID(stock_id);
     }
 
 
