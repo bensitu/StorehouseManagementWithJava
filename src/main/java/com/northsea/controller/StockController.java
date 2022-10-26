@@ -25,6 +25,7 @@ public class StockController {
 
     @GetMapping("/{id}")
     public ResultBean<Stock> getById(@PathVariable String id){
+        log.info("Get by id");
         return new ResultBean<Stock>(stockService.getById(id));
     }
 

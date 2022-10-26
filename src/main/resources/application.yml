@@ -21,8 +21,12 @@ spring:
     timeout: 3600
     # 存储 session 方式，这里选择为jdbc
     store-type: jdbc
+  # 主动关闭循环引用的检查
   main:
-    allow-circular-references: true
+    allow-circular-references: false
+  # 使用 dev 配置文件  application-dev.yml
+  profiles:
+  #  active: dev
 
 # 日志 Logs ログ
 logging:
